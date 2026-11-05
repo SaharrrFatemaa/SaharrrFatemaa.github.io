@@ -1,6 +1,7 @@
 <!DOCTYPE html
+	
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0" />
+
 <style>
 	body{
 		text-align: center;
@@ -33,7 +34,8 @@
 	  frameborder="0"
 	  style="width:80%; max-width:1280px; height:auto; aspect-ratio:1280/720; border:0; display:block; margin:0 auto;"
 	></iframe>
-	
+<button class="likebuttons">like</button>
+<span class="numlikes">0</span>	
 </div>
 
 <div class="embed box">
@@ -49,9 +51,50 @@
 	  frameborder="0"
 	  style="width:80%; max-width:1280px; height:auto; aspect-ratio:1280/720; border:0; display:block; margin:0 auto;"
 	></iframe>
+<button class="likebuttons">like</button>
+<span class="numlikes">0</span>		
 </div>	
 
+<script type="module">
+  // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+	import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-database.js";
 
+	
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQyBAYoM5tzbIgAJVgB7ErznboKadv1Z8",
+      authDomain: "saharlikebuttons1.firebaseapp.com",
+      projectId: "saharlikebuttons1",
+      storageBucket: "saharlikebuttons1.firebasestorage.app",
+      messagingSenderId: "442907246173",
+      appId: "1:442907246173:web:f797b7649a1f9acea097b4",
+      measurementId: "G-XWZDXGLG9B"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+	const db = getDatabase(app);
+	const likeButtons = document.querySelectorAll(".likeButtons")
+	const numLikes = document.querySelectorAll(".numLikes")
+
+	for (let i=0; i<likeButtons.length; i++) {
+		likeButtons[i].addEventListener('click', function(){ Like(i) })
+	}
+
+	function Like(i) {
+		let numberLikes = parseInt(numLikes[i].innerHTML)
+		numberLikes = numberLikes + 1
+		set(ref(db, "project " + i), {
+					numLikes: numberLikes,
+				});
+		
+	}
+</script>
 
 </body>
 	
